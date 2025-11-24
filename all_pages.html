@@ -2610,7 +2610,8 @@
             }
           }
           
-          pendingOrderCount++;
+          // 不在这里增加pendingOrderCount，让updateSettleCount根据实际选中的数量来更新
+          // pendingOrderCount会在updateSettleCount中根据选中的复选框数量自动更新
           updateSettleCount();
           
           // 返回容器元素，方便后续操作（如自动勾选）
@@ -2625,6 +2626,12 @@
       function updateSettleCount() {
         const checkedCount = document.querySelectorAll('#direct-content input[type="checkbox"]:checked').length;
         document.getElementById('settleCount').textContent = checkedCount;
+        
+        // 更新pendingOrderCount为选中的数量
+        pendingOrderCount = checkedCount;
+        
+        // 重新计算价格
+        recalculateOrderPricing();
       }
       
       // 全选订单
