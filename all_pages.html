@@ -2724,14 +2724,14 @@
           settlementDateInput.setAttribute('min', todayString);
           
           // 监听日期变化，确保不能选择今天之前的日期
-          settlementDateInput.addEventListener('change', function() {
+          settlementDateInput.addEventListener('change', async function() {
             const selectedDate = this.value;
             if (selectedDate < todayString) {
               alert('不能选择今天之前的日期');
               this.value = todayString;
-              recalculateOrderPricing();
+              await recalculateOrderPricing();
             } else {
-              recalculateOrderPricing();
+              await recalculateOrderPricing();
             }
           });
         }
