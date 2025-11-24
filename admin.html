@@ -66,7 +66,7 @@
       .main-content {
         flex: 1;
         margin-left: 250px;
-        padding: 20px;
+        padding: 20px 20px 20px 10px;
       }
       
       .page-header {
@@ -1588,7 +1588,7 @@
             <td>${item.phone}</td>
             <td>${item.settlementDate || '-'}</td>
             <td>${item.nonMemberName || '-'}</td>
-            <td><a href="${item.nonMemberLink || '#'}" target="_blank">${item.nonMemberLink || '-'}</a></td>
+            <td><a href="${item.nonMemberLink || '#'}" target="_blank" style="display: inline-block; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${item.nonMemberLink || '-'}">${item.nonMemberLink ? (item.nonMemberLink.length > 30 ? item.nonMemberLink.substring(0, 30) + '...' : item.nonMemberLink) : '-'}</a></td>
             <td>${item.points.toFixed(2)}</td>
             <td>${item.createdAt || '-'}</td>
             <td>
@@ -1732,7 +1732,7 @@
             <td>${item.name || '-'}</td>
             <td>${item.phone || '-'}</td>
             <td>${item.nonMemberName || '-'}</td>
-            <td>${item.nonMemberLink && item.nonMemberLink !== '-' ? `<a href="${item.nonMemberLink}" target="_blank">${item.nonMemberLink}</a>` : '-'}</td>
+            <td>${item.nonMemberLink && item.nonMemberLink !== '-' ? `<a href="${item.nonMemberLink}" target="_blank" style="display: inline-block; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${item.nonMemberLink}">${item.nonMemberLink.length > 30 ? item.nonMemberLink.substring(0, 30) + '...' : item.nonMemberLink}</a>` : '-'}</td>
             <td>${item.createdAt || '-'}</td>
             <td>${item.description || '-'}</td>
             <td>${imageHtml}</td>
@@ -2160,7 +2160,7 @@
               tbody.innerHTML = data.nonmembers.map(item => `
                 <tr>
                   <td>${item.name}</td>
-                  <td><a href="${item.link || '#'}" target="_blank">${item.link || '-'}</a></td>
+                  <td><a href="${item.link || '#'}" target="_blank" style="display: inline-block; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${item.link || '-'}">${item.link ? (item.link.length > 30 ? item.link.substring(0, 30) + '...' : item.link) : '-'}</a></td>
                   <td>${item.createdAt || '-'}</td>
                   <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">查看详情</button></td>
                 </tr>

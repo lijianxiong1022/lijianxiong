@@ -35,11 +35,11 @@ class Config:
     
     # JWT配置
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'dev-secret-key-change-in-production')
-    jwt_expires = os.getenv('JWT_ACCESS_TOKEN_EXPIRES', '86400')
+    jwt_expires = os.getenv('JWT_ACCESS_TOKEN_EXPIRES', '2592000')  # 默认30天（30 * 24 * 60 * 60 = 2592000秒）
     try:
         JWT_ACCESS_TOKEN_EXPIRES = timedelta(seconds=int(jwt_expires))
     except:
-        JWT_ACCESS_TOKEN_EXPIRES = timedelta(seconds=86400)
+        JWT_ACCESS_TOKEN_EXPIRES = timedelta(seconds=2592000)  # 默认30天
     
     # Flask配置
     DEBUG = os.getenv('FLASK_DEBUG', 'True') == 'True'
