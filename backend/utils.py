@@ -38,16 +38,16 @@ def get_base_price(settlement_date, settings=None):
 def get_discount_by_order_count(order_count, discount_rules):
     """根据订单数量获取折扣率"""
     if not discount_rules:
-        print(f'[DEBUG] get_discount_by_order_count - 无折扣规则，订单数量: {order_count}')
-        return 0
+        print(f'[DEBUG] get_discount_by_order_count - 无折扣规则，订单数量: {order_count}，返回1.0（不打折）')
+        return 1.0  # 如果没有规则，返回1.0（不打折）
     
     # 按minOrders降序排序，找到最大的适用规则
     applicable_rules = [r for r in discount_rules if order_count >= r['minOrders']]
     print(f'[DEBUG] get_discount_by_order_count - 订单数量: {order_count}, 折扣规则: {discount_rules}, 适用规则: {applicable_rules}')
     
     if not applicable_rules:
-        print(f'[DEBUG] get_discount_by_order_count - 无适用规则，返回0折扣')
-        return 0
+        print(f'[DEBUG] get_discount_by_order_count - 无适用规则，返回1.0（不打折）')
+        return 1.0  # 如果没有匹配的规则，返回1.0（不打折）
     
     max_rule = max(applicable_rules, key=lambda x: x['minOrders'])
     discount_rate = max_rule['discount']
