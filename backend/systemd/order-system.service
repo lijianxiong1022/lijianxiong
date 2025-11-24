@@ -1,0 +1,35 @@
+[Unit]
+Description=Order System Flask Application
+After=network.target mysql.service
+Requires=mysql.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/var/www/order-system/backend
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+Environment="FLASK_ENV=production"
+
+# 加载生产环境配置
+EnvironmentFile=/var/www/order-system/backend/.env.production
+
+# 启动命令
+ExecStart=/usr/bin/python3 /var/www/order-system/backend/app.py
+
+# 重启策略
+Restart=always
+RestartSec=10
+
+# 日志配置
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=order-system
+
+# 安全配置
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
