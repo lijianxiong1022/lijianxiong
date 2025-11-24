@@ -1,0 +1,13 @@
+# 在服务器上执行以下一行命令即可完成部署
+# 方法：SSH连接到服务器后，复制粘贴执行
+
+# 方式1：直接从GitHub下载并执行（推荐）
+curl -o /tmp/deploy.sh https://raw.githubusercontent.com/lijianxiong1022/lijianxiong/master/一键部署-服务器执行.sh && bash /tmp/deploy.sh
+
+# 方式2：如果方式1失败，使用以下命令
+cd /tmp && wget https://raw.githubusercontent.com/lijianxiong1022/lijianxiong/master/一键部署-服务器执行.sh && bash deploy.sh
+
+# 方式3：手动执行（如果GitHub无法访问）
+# 1. 先上传 一键部署-服务器执行.sh 到服务器
+# 2. 然后执行：bash 一键部署-服务器执行.sh
+
