@@ -3057,6 +3057,28 @@
               await loadRewardStatistics();
             }
             
+            // 更新个人信息显示
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            if (userNameDisplay) {
+              userNameDisplay.textContent = user.name || '--';
+            }
+            
+            const userPhoneDisplay = document.getElementById('userPhoneDisplay');
+            if (userPhoneDisplay) {
+              userPhoneDisplay.textContent = user.phone || '--';
+            }
+            
+            const userRegisterDate = document.getElementById('userRegisterDate');
+            if (userRegisterDate) {
+              userRegisterDate.textContent = user.registerDate || user.createdAt || '--';
+            }
+            
+            // 更新推广码显示
+            const userPromoCodeElement = document.getElementById('userPromoCode');
+            if (userPromoCodeElement && user.promoCode) {
+              userPromoCodeElement.textContent = user.promoCode;
+            }
+            
             // 更新现金收益显示
             const cashProfitElement = document.getElementById('cashProfit');
             if (cashProfitElement) {
@@ -3094,7 +3116,7 @@
           <div class="order-details">
             <div class="order-detail">
               <div class="order-detail-label">碰碰链接</div>
-              <div class="order-detail-value">${sanitizeInput(nm.link || 'https://t.cn/R123456')}</div>
+              <div class="order-detail-value" style="max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${sanitizeInput(nm.link || 'https://t.cn/R123456')}">${nm.link ? (nm.link.length > 40 ? sanitizeInput(nm.link.substring(0, 40)) + '...' : sanitizeInput(nm.link)) : 'https://t.cn/R123456'}</div>
             </div>
             <div class="order-detail">
               <div class="order-detail-label">添加时间</div>
@@ -3518,6 +3540,19 @@
       
       // 页面加载完成后设置默认日期和金币信息
       document.addEventListener('DOMContentLoaded', function() {
+        // 确保从localStorage恢复token和userInfo
+        if (localStorage.getItem('user_token')) {
+          userApiService.token = localStorage.getItem('user_token');
+          const savedUserInfo = localStorage.getItem('user_info');
+          if (savedUserInfo) {
+            try {
+              userApiService.userInfo = JSON.parse(savedUserInfo);
+            } catch (e) {
+              console.error('解析user_info失败:', e);
+            }
+          }
+        }
+        
         // 检查登录状态
         if (userApiService.isAuthenticated()) {
           // 已登录，加载用户数据

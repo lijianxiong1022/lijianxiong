@@ -18,8 +18,16 @@ const USER_API_BASE_URL = getApiBaseUrl();
 
 class UserAPIService {
   constructor() {
+    // 从localStorage恢复token和userInfo
     this.token = localStorage.getItem('user_token') || '';
-    this.userInfo = JSON.parse(localStorage.getItem('user_info') || 'null');
+    const savedUserInfo = localStorage.getItem('user_info');
+    this.userInfo = savedUserInfo ? JSON.parse(savedUserInfo) : null;
+    
+    // 确保token和userInfo同步
+    if (this.token && !this.userInfo) {
+      // 如果有token但没有userInfo，尝试从localStorage恢复
+      console.log('检测到token但缺少userInfo，尝试恢复...');
+    }
   }
 
   // 通用请求方法
